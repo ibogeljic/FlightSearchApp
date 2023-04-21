@@ -1,0 +1,110 @@
+﻿<script language="javascript" type="text/javascript">
+    $(function () {
+        $('.date-picker').datepicker({
+            autoclose: true,
+            format: "dd.mm.yyyy",
+            todayBtn: true,
+            todayHighlight: true,
+            toggleActive: true,
+            language: 'hr',
+            calendarWeeks: true,
+            startView: 0
+        });
+    });
+
+    function globalOnSuccess(zatvoriMolimPricekajte, modalForm) {
+        if (zatvoriMolimPricekajte) {
+            setTimeout(function () { ZatvoriMolimPricekajte() }, 300)
+        }
+        if (modalForm != "") {
+            setTimeout(function () { CloseModal(modalForm); }, 1000)
+        }
+    }
+
+    function globalOnError(zatvoriMolimPricekajte, jqXHR, exception) {
+        if (zatvoriMolimPricekajte) {
+            setTimeout(function () { ZatvoriMolimPricekajte() }, 300)
+        }
+        setTimeout(function () { prikaziPoruku(formatAjaxErrorMessage(jqXHR, exception)) }, 1000);
+    }
+
+    function OpenModal(frm) {
+        $("#" + frm).modal({ backdrop: "static" });
+    }
+
+    function CloseModal(frm) {
+        $('#' + frm).modal('toggle');
+    }
+
+    function OtvoriMolimPricekajte(zatvori) {
+        setTimeout(function () { waitingDialog.show($("#spanPleaseWait").html()) }, 200);
+
+        if (zatvori) {
+            setTimeout(function () { waitingDialog.hide() }, 3000);
+        }
+    }
+
+    function ZatvoriMolimPricekajte() {
+        waitingDialog.hide();
+    }
+
+    function ReloadDataTable(id) {
+        $('#' + id).DataTable().ajax.reload();
+    }
+
+    function readForComboAndSetValue(url, cbo, change, val, onlySelect2) {
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                if (val != '') {
+                    if (onlySelect2 == undefined) {
+                        setComboValueOnlySelect2(cbo, data, val)
+                    }
+                    else {
+                        setComboValue(cbo, data, val)
+                    }
+                }
+                else if (change) {
+                    if (onlySelect2 == undefined) {
+                        setComboChangeOnlySelect2(cbo, data)
+                    }
+                    else {
+                        setComboChange(cbo, data)
+                    }
+                }
+                else {
+                    setCombo(cbo, data)
+                }
+            }
+        });
+    }
+
+    function setComboValueOnlySelect2(cbo, data, val) {
+        $("#" + cbo).html('').select2({ data: data }).val(val).trigger('change.select2');
+    }
+
+    function setComboValue(cbo, data, val) {
+        $("#" + cbo).html('').select2({ data: data }).val(val).trigger('change');
+    }
+
+    function setComboChange(cbo, data) {
+        $("#" + cbo).html('').select2({ data: data }).trigger('change');
+    }
+
+    function setComboChangeOnlySelect2(cbo, data) {
+        $("#" + cbo).html('').select2({ data: data }).trigger('change.select2');
+    }
+
+    function setCombo(cbo, data) {
+        $("#" + cbo).html('').select2({ data: data });
+    }
+
+    $(document).ready(function () {
+        $('#txtSearch').keyup(function () {
+            $('.dt').DataTable().search($(this).val()).draw();
+        });
+    });
+</script>

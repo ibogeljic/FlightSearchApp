@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>FlightSearchApp.Presentation</RootNamespace>
+    <AssemblyName>FlightSearchApp.Presentation</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="7.0.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\1_FlightSearchApp.Application\1_FlightSearchApp.Application.csproj" />
+    <ProjectReference Include="..\2_FlightSearchApp.Infrastructure\2_FlightSearchApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\3_FlightSearchApp.Domain\3_FlightSearchApp.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,103 @@
+﻿@using FlightSearchApp.Domain
+
+<script type="text/javascript">
+    function codeListDelete(url) {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'html',
+            cache: false//,
+            //success: function (data) {
+            //    ReloadDataTable("dtCodeList");
+            //}
+        });
+        ReloadDataTable("dtCodeList");
+    }
+
+    function codeListUpdate(data, add) {
+        var rawData = data.split('|');
+
+        $("#cboCodeListEntity").val(add ? $("#cboEntity").select2('val') : rawData[2]).trigger('change');
+        $("#txtCodeListID").val(add ? '' : rawData[0]);
+        $("#txtCodeListCode").val(add ? '' : rawData[1]);
+        OpenModal("codeListModal");
+        ReloadDataTable("dtCodeList");
+    }
+
+    function codeListSave(url, data) {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            cache: false,
+            success: function (data) {
+                if (data > 0) {
+                    $("#txtCodeListID").val(data);
+                }
+            }
+        });
+    }
+
+    $(document).ready(function ($) {
+        readForComboAndSetValue('@Globals.GetAjaxPath(AjaxPath.CodeListGetEntitiesForCombo)', 'cboCodeListEntity', false, "1");
+        readForComboAndSetValue('@Globals.GetAjaxPath(AjaxPath.CodeListGetEntitiesForFilterCombo)', 'cboEntity', false, "-1");
+
+        $('#dtCodeList').DataTable({
+            paging: false,
+            info: false,
+            ordering: true,
+            deferRender: true,
+            columns: [
+                { width: "" },
+                { width: "10px" },
+                { width: "10px" }
+            ],
+            ajax: {
+                url: "@Globals.GetAjaxPath(AjaxPath.CodeListReadForDT)",
+                data: function (d) {
+                    d.entity = $("#cboEntity").select2("val")
+                }
+            }
+        });
+
+        $('#codeListModal').on('shown.bs.modal', function () {
+            $('#txtCodeListCode').focus();
+        });
+
+    }).on("click", '#btnCodeListSave', function (event) {
+        if (!$("#frmCodeListModal").valid()) {
+            return false;
+        };
+
+        var data = {
+            codeList: {
+                ID: $("#txtCodeListID").val(),
+                Entity: $("#cboCodeListEntity").select2("val"),
+                Code: $("#txtCodeListCode").val()
+            }
+        };
+
+        var url = "@Globals.GetAjaxPath(AjaxPath.CodeListAdd)";
+        if ($("#txtCodeListID").val() != 0) {
+            url = "@Globals.GetAjaxPath(AjaxPath.CodeListUpdate)";
+        }
+
+        CloseModal("codeListModal");
+
+        codeListSave(url, data);
+
+        setTimeout(function () { ReloadDataTable("dtCodeList"); }, 1000);
+
+    }).on("click", '#btnCodeListAdd', function (event) {
+        OpenModal("codeListModal");
+        
+        codeListUpdate('', true);
+
+    }).on("click", '#btnCodeListUpdate', function (event) {
+        codeListUpdate(this.getAttribute('data'), false);
+
+    }).on("change", "#cboEntity", function (e) {
+        ReloadDataTable("dtCodeList");
+
+    });
+</script>

@@ -1,0 +1,30 @@
+﻿<div id="codeListModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Code lists</h2>
+            </div>
+            <div class="modal-body">
+                <form id="frmCodeListModal" data-toggle="validator" autocomplete="off">
+                    <div class="row">
+                        <input type="hidden" id="txtCodeListID" class="form-control" value="0"/>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label">Entity</label>
+                            <select class="form-control select2" id="cboCodeListEntity" name="cboCodeListEntity" style="width:100%" data-val="true"></select>
+                            <span class="text-danger field-validation-valid" data-valmsg-for="cboCodeListEntity" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label">Code</label>
+                            <input id="txtCodeListCode" name="txtCodeListCode" class="form-control" data-val="true"/>
+                            <span class="text-danger field-validation-valid" data-valmsg-for="txtCodeListCode" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnClose" class="btn btn-md btn-default list-options" data-dismiss="modal" aria-hidden="true"><i class='fa fa-close'></i>&nbsp;&nbsp;<span>Close</span></button>
+                <button type="button" id="btnCodeListSave" class="btn btn-md btn-default btn-save list-options"><i class='fa fa-save'></i>&nbsp;&nbsp;<span>Save</span></button>
+            </div>
+        </div>
+    </div>
+</div>

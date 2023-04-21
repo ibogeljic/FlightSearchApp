@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "<span>Code lists</span>";
+}
+
+@section Styles {
+    @{
+        await Html.RenderPartialAsync("_DataTablesStyles");
+    }
+}
+
+<div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="input-group" id="customSearch">
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                <input type="text" id="txtSearch" class="form-control" style="width:90%" placeholder="Search ...">
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <select class="form-control select2" id="cboEntity"></select>
+        </div>
+        <div class="col-xs-3 text-right">
+            <a id="btnCodeListAdd" class="btn btn-primary">
+                <i class="fa fa-plus-square">
+                </i>&nbsp;&nbsp;<span>New</span>
+            </a>
+        </div>
+    </div>
+    <table id="dtCodeList" class="display compact cell-border dt" cellspacing="0" style="width:100%">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+@{
+    await Html.RenderPartialAsync("_ModalCodeList");
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_DataTablesScripts");
+        await Html.RenderPartialAsync("CodeListIndexScripts");
+    }
+
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+
+        });
+    </script>
+}

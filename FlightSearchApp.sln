@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "0_FlightSearchApp.Presentation", "0_FlightSearchApp.Presentation\0_FlightSearchApp.Presentation.csproj", "{9109C314-FE4B-4BEF-A484-9C7218FA1A56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1_FlightSearchApp.Application", "1_FlightSearchApp.Application\1_FlightSearchApp.Application.csproj", "{F48C9601-985C-4721-B4EF-915B1B8FBDE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2_FlightSearchApp.Infrastructure", "2_FlightSearchApp.Infrastructure\2_FlightSearchApp.Infrastructure.csproj", "{D3795EF0-70C0-41B8-A117-2C01C6B12B78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3_FlightSearchApp.Domain", "3_FlightSearchApp.Domain\3_FlightSearchApp.Domain.csproj", "{CF908E42-E982-45F3-8816-521E4A949337}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmadeusService", "AmadeusService\AmadeusService.csproj", "{F3946741-0A4C-457A-AC4D-725EB24EC0DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4_FlightSearchApp.Tests", "4_FlightSearchApp.Tests\4_FlightSearchApp.Tests.csproj", "{2C9715F9-2B52-491A-BFE8-B1B5C9CEB7FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9109C314-FE4B-4BEF-A484-9C7218FA1A56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9109C314-FE4B-4BEF-A484-9C7218FA1A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9109C314-FE4B-4BEF-A484-9C7218FA1A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9109C314-FE4B-4BEF-A484-9C7218FA1A56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F48C9601-985C-4721-B4EF-915B1B8FBDE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F48C9601-985C-4721-B4EF-915B1B8FBDE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F48C9601-985C-4721-B4EF-915B1B8FBDE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F48C9601-985C-4721-B4EF-915B1B8FBDE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3795EF0-70C0-41B8-A117-2C01C6B12B78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3795EF0-70C0-41B8-A117-2C01C6B12B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3795EF0-70C0-41B8-A117-2C01C6B12B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3795EF0-70C0-41B8-A117-2C01C6B12B78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF908E42-E982-45F3-8816-521E4A949337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF908E42-E982-45F3-8816-521E4A949337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF908E42-E982-45F3-8816-521E4A949337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF908E42-E982-45F3-8816-521E4A949337}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3946741-0A4C-457A-AC4D-725EB24EC0DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3946741-0A4C-457A-AC4D-725EB24EC0DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3946741-0A4C-457A-AC4D-725EB24EC0DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3946741-0A4C-457A-AC4D-725EB24EC0DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C9715F9-2B52-491A-BFE8-B1B5C9CEB7FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C9715F9-2B52-491A-BFE8-B1B5C9CEB7FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C9715F9-2B52-491A-BFE8-B1B5C9CEB7FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C9715F9-2B52-491A-BFE8-B1B5C9CEB7FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4BBB5344-3F55-41DE-9D9E-26A82C94C181}
+	EndGlobalSection
+EndGlobal

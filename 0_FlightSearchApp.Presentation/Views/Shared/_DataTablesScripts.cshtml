@@ -1,0 +1,13 @@
+﻿<script src="~/plugins/datatables/jquery.dataTables.min.js" asp-append-version="true"></script>
+<script>
+    $.extend(true, $.fn.dataTable.defaults, {
+        pagingType: "numbers",
+        lengthChange: false,
+        paging: true,
+        info: false,
+        ordering: true,
+        deferRender: false,
+        scrollX: true,
+        order: []
+    });
+</script>

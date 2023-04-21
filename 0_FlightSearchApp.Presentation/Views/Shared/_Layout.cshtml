@@ -1,0 +1,150 @@
+﻿@{
+    var _controller = ViewContext.RouteData.Values["controller"].ToString();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flight Search App</title>
+
+    <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+
+    <script defer src="~/plugins/font-awesome/js/all.min.js"></script>
+    <script defer src="~/plugins/font-awesome/js/v4-shims.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="~/plugins/ionicons/css/ionicons.min.css" />
+
+    @RenderSection("styles", required: false)
+    @{
+        await Html.RenderPartialAsync("_Select2Styles");
+    }
+
+    <link type="text/css" rel="stylesheet" href="~/plugins/bootstrap.datepicker/Content/bootstrap-datepicker3.min.css" asp-append-version="true" />
+    <link type="text/css" rel="stylesheet" href="~/plugins/bootstrap.datepicker/Content/bootstrap-datepicker3.standalone.min.css" asp-append-version="true" />
+    <link type="text/css" rel="stylesheet" href="~/css/AdminLTE.css" asp-append-version="true" />
+    <link type="text/css" rel="stylesheet" href="~/css/skin-blue.min.css" asp-append-version="true" />
+
+    @{
+        await Html.RenderPartialAsync("_ModalStyles");
+        await Html.RenderPartialAsync("_iCheckSquareStyles");
+    }
+
+</head>
+<body class="hold-transition skin-blue fixed sidebar-mini">
+    <div class="wrapper">
+        <!-- Main Header -->
+        <header id="headerLayout" class="main-header">
+            <!-- Logo -->
+            <a class="logo btn-menu" asp-controller="Home" asp-action="Home">
+                <span class="logo-mini"><b>FSA</b></span>
+                <span class="logo-lg"><img src="~/images/newone.jpg" /></span>
+            </a>
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <i class="fas fa-bars"></i><span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-left">
+                    <ul class="nav navbar-nav">
+                        <li style="font-size:22px"><a class="btn-menu" asp-controller="Home" asp-action="Home"><strong>Cheap Flights Co.</strong></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar Menu -->
+                <ul class="sidebar-menu">
+                    <li>
+                        <a asp-controller="CodeList" asp-action="CodeListIndex" class="btn-menu">
+                            <i class="fa fa-book-open"></i>&nbsp;<span>Code lists</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="FlightOffer" asp-action="FlightOfferIndex" class="btn-menu">
+                            <i class="fa fa-plane"></i>&nbsp;<span>Flight offers</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.sidebar-menu -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <div class="content-wrapper">
+            @if (_controller == "Home")
+            {
+            }
+            else
+            {
+                <section class="content-header">
+                    <h1>
+                        @Html.Raw(ViewData["Title"])
+                    </h1>
+                </section>
+            }
+
+           @if (_controller == "Home")
+            {
+                @RenderBody()
+            }
+            else
+            {
+                <section class="content">
+                    <span id="spanPleaseWait"></span>
+                    @RenderBody()
+                </section>
+            }
+        </div>
+
+        <!-- Main Footer -->
+        <footer id="footerLayout" class="main-footer">
+            <!-- To the right -->
+            <div class="pull-right hidden-xs">
+                @DateTime.Today.ToString("dd.MM.yyyy.")
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright &copy; @DateTime.Now.Year Igor Bogeljić</strong>
+        </footer>
+    </div>
+
+    <script type='text/javascript' src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script type='text/javascript' src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/plugins/bootstrap.datepicker/Scripts/bootstrap-datepicker.min.js"></script>
+    <script src="~/plugins/bootstrap.datepicker/Scripts/locales/bootstrap-datepicker.hr.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_iCheckSquareScripts");
+        await Html.RenderPartialAsync("_Select2Scripts");
+    }
+    <script src="~/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="~/js/app.min.js" asp-append-version="true"></script>
+
+
+    <script src="~/plugins/jquery.i18n/src/jquery.i18n.js"></script>
+    <script src="~/plugins/jquery.i18n/src/jquery.i18n.messagestore.js"></script>
+    <script src="~/plugins/jquery.i18n/src/jquery.i18n.fallbacks.js"></script>
+    <script src="~/plugins/jquery.i18n/src/jquery.i18n.parser.js"></script>
+    <script src="~/plugins/jquery.i18n/src/jquery.i18n.emitter.js"></script>
+    <script src="~/plugins/jquery.i18n/src/jquery.i18n.language.js"></script>
+    <script src="~/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="~/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="~/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <script src="~/plugins/input-mask/jquery.inputmask.numeric.extensions.js"></script>
+    <script src="~/plugins/bootstrap-waiting-for/bootstrap-waitingfor.min.js"></script>
+
+    @{
+        await Html.RenderPartialAsync("_LayoutScripts");  
+    }
+
+</body>
+</html>

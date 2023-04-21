@@ -1,0 +1,11 @@
+﻿<img id="imgHome" src="~/images/airport-terminal.jpg" style="width:100%;height:10px;margin:auto;display:block;" />
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+            $('#imgHome').height($(document).height() - ($("#headerLayout").height() * 2 + 1));
+        });
+    </script>
+}

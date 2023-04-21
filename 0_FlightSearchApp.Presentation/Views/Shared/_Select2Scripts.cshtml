@@ -1,0 +1,22 @@
+﻿<script src="~/plugins/select2/select2.full.min.js"></script>
+<script src="~/plugins/select2/i18n/hr.js"></script>
+
+<script>
+    function formatView(data) {
+        return {
+            results: $.map(data, function (obj) {
+                if (!obj.id) {
+                    return obj;
+                }
+                else {
+                    return { id: obj.id, text: obj.text };
+                }
+            })
+        };
+    }
+    $('.select2').select2({
+        language: "hr",
+        processResults: formatView
+
+    });
+</script>
