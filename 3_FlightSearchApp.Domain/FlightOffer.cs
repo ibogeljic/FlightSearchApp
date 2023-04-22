@@ -10,9 +10,7 @@ namespace FlightSearchApp.Domain
     public class FlightOffer : Entity
     {
         public string DepartureAirportCode { get; set; }
-        public string DepartureAirportName { get; set; }
         public string DestinationAirportCode { get; set; }
-        public string DestinationAirportName { get; set; }
         public DateTime DepartureDate { get; set; }
         public DateTime? ReturnDate { get; set; }
         public int TransferNumbersDeparture { get; set; }

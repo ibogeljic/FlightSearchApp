@@ -12,18 +12,18 @@
         });
     });
 
-    function globalOnSuccess(zatvoriMolimPricekajte, modalForm) {
-        if (zatvoriMolimPricekajte) {
-            setTimeout(function () { ZatvoriMolimPricekajte() }, 300)
+    function globalOnSuccess(closePleaseWait, modalForm) {
+        if (closePleaseWait) {
+            setTimeout(function () { ClosePleaseWait() }, 300)
         }
         if (modalForm != "") {
             setTimeout(function () { CloseModal(modalForm); }, 1000)
         }
     }
 
-    function globalOnError(zatvoriMolimPricekajte, jqXHR, exception) {
-        if (zatvoriMolimPricekajte) {
-            setTimeout(function () { ZatvoriMolimPricekajte() }, 300)
+    function globalOnError(closePleaseWait, jqXHR, exception) {
+        if (closePleaseWait) {
+            setTimeout(function () { ClosePleaseWait() }, 300)
         }
         setTimeout(function () { prikaziPoruku(formatAjaxErrorMessage(jqXHR, exception)) }, 1000);
     }
@@ -34,18 +34,6 @@
 
     function CloseModal(frm) {
         $('#' + frm).modal('toggle');
-    }
-
-    function OtvoriMolimPricekajte(zatvori) {
-        setTimeout(function () { waitingDialog.show($("#spanPleaseWait").html()) }, 200);
-
-        if (zatvori) {
-            setTimeout(function () { waitingDialog.hide() }, 3000);
-        }
-    }
-
-    function ZatvoriMolimPricekajte() {
-        waitingDialog.hide();
     }
 
     function ReloadDataTable(id) {
@@ -80,6 +68,18 @@
                 }
             }
         });
+    }
+
+    function OpenPleaseWait(close) {
+        setTimeout(function () { waitingDialog.show($("#spanPleaseWait").html()) }, 200);
+
+        if (close) {
+            setTimeout(function () { waitingDialog.hide() }, 3000);
+        }
+    }
+
+    function ClosePleaseWait() {
+        waitingDialog.hide();
     }
 
     function setComboValueOnlySelect2(cbo, data, val) {
