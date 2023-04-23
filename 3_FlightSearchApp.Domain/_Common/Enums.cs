@@ -19,6 +19,7 @@ namespace FlightSearchApp.Domain
         CodeListReadForDT = 3,
         CodeListAdd = 4,
         CodeListUpdate = 5,
-        CodeListDelete = 6
+        CodeListDelete = 6,
+        FlightOfferGetCurrencyForCombo = 7,
     }
 }

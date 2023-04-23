@@ -6,6 +6,7 @@ namespace FlightSearchApp.Application
     public interface ICodeListService : IGenericSoftDeleteService<CodeList>
     {
         object ReadEntitiesForCombo(bool filter);
+        object ReadAllForEntity(CodesEnum entity);
         List<string[]> ReadForDT(string entity);
     }
     #endregion
@@ -31,6 +32,11 @@ namespace FlightSearchApp.Application
                     list.Add(new { id = i.ToString(), text = i.ToString() });
 
             return list.ToArray();
+        }
+        public object ReadAllForEntity(CodesEnum entity)
+        {
+            return Globals.ReadForCombo(false, _Repository.ReadAllForEntity(entity).
+             Select(o => new { id = o.ID.ToString(), text = o.Code }));
         }
         public List<string[]> ReadForDT(string entity)
         {

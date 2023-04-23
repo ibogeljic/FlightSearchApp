@@ -12,6 +12,8 @@
         });
     });
 
+    $(".cijeli-broj-1-maska").inputmask("[9]", { "repeat": 1, "placeholder": '' });
+
     function globalOnSuccess(closePleaseWait, modalForm) {
         if (closePleaseWait) {
             setTimeout(function () { ClosePleaseWait() }, 300)
@@ -100,6 +102,23 @@
 
     function setCombo(cbo, data) {
         $("#" + cbo).html('').select2({ data: data });
+    }
+
+    function clearFields() {
+        const inputFields = document.querySelectorAll('input[type="text"], input[type="datetime-local"], select');
+        inputFields.forEach((field) => {
+            switch (field.type) {
+                case 'text':
+                case 'datetime-local':
+                    field.value = '';
+                    break;
+                case 'select-one':
+                    field.selectedIndex = 0;
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
     $(document).ready(function () {

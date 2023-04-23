@@ -5138,3 +5138,47 @@ table.text-center th {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.width-100 {
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    align-items: stretch;
+}
+
+.row > * {
+    flex: 1;
+}
+
+.components {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.empty-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 20px;
+}
+
+.reset-button {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.search-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

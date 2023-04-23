@@ -24,6 +24,8 @@ namespace FlightSearchApp
             services.AddMvc();
             services.AddScoped<ICodeListService, CodeListService>();
             services.AddScoped<ICodeListRepository, CodeListRepository>();
+            services.AddScoped<IFlightOfferService, FlightOfferService>();
+            services.AddScoped<IFlightOfferRepository, FlightOfferRepisitory>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

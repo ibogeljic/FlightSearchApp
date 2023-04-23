@@ -1,5 +1,141 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using FlightSearchApp.Domain;
+
 @{
+    ViewData["Title"] = "<span>Flights offer</span>";
+}
+
+@section Styles {
+    @{
+        await Html.RenderPartialAsync("_DataTablesStyles");
+    }
+}
+
+<div>
+    <form id="frmFlightOffer" data-toggle="validator" autocomplete="off">
+        <div class="row empty-row"></div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="control-label">Departure airport code</label>
+                <div class="input-group width-100">
+                    <input type="text" class="width-100 components" id="txtDepartureAirportCode" name="txtDepartureAirportCode" data-val="true" />
+                    <span class="text-danger field-validation-valid" data-valmsg-for="txtDepartureAirportCode" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label class="control-label">Destination airport code</label>
+                <div class="input-group width-100" style="width:100%">
+                    <input type="text" class="width-100 components" id="txtDestinationAirportCode" name="txtDestinationAirportCode" data-val="true" />
+                    <span class="text-danger field-validation-valid" data-valmsg-for="txtDestinationAirportCode" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label class="control-label">Departure date</label>
+                <div class='input-group date date-picker' id='dtpDepartureDate'>
+                    <input type="text" class="components" style="width:100%" id="txtDepartureDate" data-val="true" />
+                    <span class="input-group-addon components">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="txtDepartureDate" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label class="control-label">Return date</label>
+                <div class='input-group date date-picker' id='dtpReturnDate'>
+                    <input type="text" class="components" style="width:100%;" id="txtReturnDate" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label class="control-label">Number of passengers</label>
+                <div class="input-group width-100">
+                    <input type="text" class="width-100 components cijeli-broj-1-maska" id="txtPassengersNumber" name="txtPassengersNumber" data-val="true" />
+                    <span class="text-danger field-validation-valid" data-valmsg-for="txtPassengersNumber" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label class="control-label">Currency</label>
+                <div class="input-group">
+                    <select class="form-control select2" id="cboCurrency" name="cboCurrency" style="width:100%"></select>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row empty-row"></div>
+    <div class="row empty-row"></div>
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <button class="btn reset-button" id="btnClear"><i class="fa fa-times"></i> Clear</button>
+            <button class="btn search-button" id="btnSearch"><i class="fa fa-search"></i> Search</button>
+        </div>
+    </div>
+    <div class="row empty-row"></div>
+    <table id="dtFlightOffers" class="display compact cell-border dt" cellspacing="0" style="width:100%">
+        <thead>
+            <tr>
+                <th>Departure airport</th>
+                <th>Destination airport</th>
+                <th>Departure date</th>
+                <th>Return date</th>
+                <th>Transfer numbers departure</th>
+                <th>Transfer numbers return</th>
+                <th>Passengers number</th>
+                <th>Currency</th>
+                <th>Total price</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+@section Scripts {
+@{
+    await Html.RenderPartialAsync("_DataTablesScripts");
+}
+
+<script src="~/plugins/bootstrap.datepicker/Scripts/bootstrap-datepicker.min.js"></script>
+
+<script type="text/javascript">
+
+    function readDTFlightOffers() {
+        var table = $('#dtFlightOffers').DataTable();
+        table.clear();
+        table.ajax.url("@Globals.GetAjaxPath(AjaxPath.CodeListReadForDT)").load({
+            data: {
+                entity: "dva" //NE ŠALJE VRIJEDNOST PARAMETRA U METODU NA CONTROLLER-u
+            }
+        });
+    }
+
+    $(document).ready(function ($) {
+        readForComboAndSetValue('@Globals.GetAjaxPath(AjaxPath.FlightOfferGetCurrencyForCombo)', 'cboCurrency', false);
+
+        $('#dtFlightOffers').DataTable({
+            paging: false,
+            info: false,
+            ordering: true,
+            deferRender: true,
+            columns: [
+                { width: "30px" },
+                { width: "30px" },
+                { width: "40px" },
+                { width: "40px" },
+                { width: "30px" },
+                { width: "30px" },
+                { width: "30px" },
+                { width: "20px" },
+                { width: "30px" }
+            ],
+            data: []
+    });
+
+    }).on("click", "#btnClear", function (e) {
+        clearFields();
+
+    }).on("click", "#btnSearch", function (e) {
+        readDTFlightOffers();
+
+    });
+</script>
 }

@@ -33,8 +33,8 @@ namespace FlightSearchApp.Domain
                 case AjaxPath.CodeListUpdate:
                     pathString += "/CodeList/CodeListUpdate";
                     break;
-                case AjaxPath.CodeListDelete:
-                    pathString += "/CodeList/CodeListDelete";
+                case AjaxPath.FlightOfferGetCurrencyForCombo:
+                    pathString += "/FlightOffer/FlightOfferGetCurrencyForCombo";
                     break;
             }
             return pathString;
