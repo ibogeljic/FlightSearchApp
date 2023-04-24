@@ -17,14 +17,14 @@
             <div class="col-sm-2">
                 <label class="control-label">Departure airport code</label>
                 <div class="input-group width-100">
-                    <input type="text" class="width-100 components" id="txtDepartureAirportCode" name="txtDepartureAirportCode" maxlength="3" data-val="true" pattern="[A-Za-z]+" oninput="this.value = this.value.toUpperCase()" />
+                    <input type="text" class="width-100 components" id="txtDepartureAirportCode" name="txtDepartureAirportCode" maxlength="3" data-val="true" oninput="this.value = this.value.toUpperCase()" />
                     <span class="text-danger field-validation-valid" data-valmsg-for="txtDepartureAirportCode" data-valmsg-replace="true"></span>
                 </div>
             </div>
             <div class="col-sm-2">
                 <label class="control-label">Destination airport code</label>
                 <div class="input-group width-100" style="width:100%">
-                    <input type="text" class="width-100 components" id="txtDestinationAirportCode" name="txtDestinationAirportCode" maxlength="3" data-val="true" pattern="[A-Za-z]+" oninput="this.value = this.value.toUpperCase()" />
+                    <input type="text" class="width-100 components" id="txtDestinationAirportCode" name="txtDestinationAirportCode" maxlength="3" data-val="true" oninput="this.value = this.value.toUpperCase()" />
                     <span class="text-danger field-validation-valid" data-valmsg-for="txtDestinationAirportCode" data-valmsg-replace="true"></span>
                 </div>
             </div>
@@ -100,7 +100,7 @@
 <script src="~/plugins/bootstrap.datepicker/Scripts/bootstrap-datepicker.min.js"></script>
 
 <script type="text/javascript">
-
+    
     function flightOfferSynchronize() {
         //if (!$("#frmFlightOffer").valid()) {
         //    return false;
@@ -125,7 +125,7 @@
             },
             dataType: 'text',
             cache: false,
-            success: function (data) { 
+            success: function (data) {
                 ClosePleaseWait();
                 showMessage(data);
             },
@@ -136,47 +136,24 @@
         });
     }
 
-    function flightOfferSearch() {
-        //if (!$("#frmFlightOffer").valid()) {
-        //    return false;
-        //};
+        function flightOfferSearch() {
+            //if (!$("#frmFlightOffer").valid()) {
+            //    return false;
+            //};
 
-        var valid = validate();
-        if (valid != "") {
-            showMessage(valid);
-            return false;
-        }
+            var valid = validate();
+            if (valid != "") {
+                showMessage(valid);
+                return false;
+            }
 
-        OpenPleaseWait();
-
-        //$.ajax({
-        //    type: 'GET',
-        //    url: '@Globals.GetAjaxPath(AjaxPath.FlightOfferSearch)',
-            //data: {
-            //    originLocationCode: $("#txtDepartureAirportCode").val(),
-            //    destinationLocationCode: $("#txtDestinationAirportCode").val(),
-            //    departureDate: $("#txtDepartureDate").val(),
-            //    returnDate: $("#txtReturnDate").val(),
-            //    adults: $("#txtPassengersNumber").val(),
-            //    currencyCode: $("#cboCurrency").select2('data')[0].text
-            //},
-        //    dataType: 'json',
-        //    cache: false,
-        //    success: function (data) {
-        //        ClosePleaseWait();
-        //        if (data.length == 0) {
-        //            showMessage("There is no flight offers for the entered values! Try fetching the data first with the Synchronize data button.");
-        //        }
-        //        else {
-        //            $('#dtFlightOffers').DataTable().clear().rows.add(data).draw();
-        //        }
-        //    },
-        //    error: function (jqXHR, textStatus, exception) {
-        //        showMessage(textStatus);
-        //    }
-        //});
+            $("#dtFlightOffers").dataTable().fnDestroy();
 
             $('#dtFlightOffers').DataTable({
+                paging: false,
+                info: false,
+                ordering: true,
+                deferRender: true,
                 columns: [
                     { width: "30px" },
                     { width: "30px" },
@@ -190,22 +167,23 @@
                 ],
                 ajax: {
                     url: "@Globals.GetAjaxPath(AjaxPath.FlightOfferSearch)",
-                    type: "POST",
-                    data: {
-                        originLocationCode: $("#txtDepartureAirportCode").val(),
-                        destinationLocationCode: $("#txtDestinationAirportCode").val(),
-                        departureDate: $("#txtDepartureDate").val(),
-                        returnDate: $("#txtReturnDate").val(),
-                        adults: $("#txtPassengersNumber").val(),
-                        currencyCode: $("#cboCurrency").select2('data')[0].text
+                    data: function (d) {
+                        d.originLocationCode = $("#txtDepartureAirportCode").val(),
+                        d.destinationLocationCode = $("#txtDestinationAirportCode").val(),
+                        d.departureDate = $("#txtDepartureDate").val(),
+                        d.returnDate = $("#txtReturnDate").val(),
+                        d.adults = $("#txtPassengersNumber").val(),
+                        d.currencyCode = $("#cboCurrency").select2('data')[0].text
                     },
-                    dataType: 'json',
-                    cache: false,
-                    success: function (data) {
-                        ClosePleaseWait();
-                    }
+                    //success: function (response) {
+                    //    alert(response.data.length);
+                    //    if (response.data.length == 0) {
+                    //        showMessage("There is no data for the specified parameters. Try to retrieve them by pressing the Synchronize data button.");
+                    //    }
+                    //}
+                }
             });
-    }
+        }
 
     function validate()
     {
@@ -243,8 +221,7 @@
                 { width: "30px" },
                 { width: "20px" },
                 { width: "30px" }
-            ],
-            data: []
+            ]
         });
 
     }).on("click", "#btnClear", function (e) {
