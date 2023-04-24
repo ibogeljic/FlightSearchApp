@@ -42,6 +42,7 @@ namespace FlightSearchApp.Domain
     public interface IFlightOfferRepository : IGenericRepository<FlightOffer>
     {
         void CheckAndSaveNonDuplicate(FlightOffer flightOffer);
+        IEnumerable<FlightOffer> ReadForParameters(string originLocationCode, string destinationLocationCode, DateTime departureDate, DateTime? returnDate, int adults, string? currencyCode);
     }
     #endregion
 }

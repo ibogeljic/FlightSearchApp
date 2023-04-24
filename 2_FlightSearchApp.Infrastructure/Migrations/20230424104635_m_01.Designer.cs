@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlightSearchApp.Infrastructure.Migrations
 {
     [DbContext(typeof(FSADbContext))]
-    [Migration("20230422072222_m_01")]
+    [Migration("20230424104635_m_01")]
     partial class m_01
     {
         /// <inheritdoc />
@@ -84,7 +84,6 @@ namespace FlightSearchApp.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("ValueID")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -99,8 +98,7 @@ namespace FlightSearchApp.Infrastructure.Migrations
                     b.HasOne("FlightSearchApp.Domain.CodeList", "Value")
                         .WithMany()
                         .HasForeignKey("ValueID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Value");
                 });

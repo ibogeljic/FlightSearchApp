@@ -26,11 +26,18 @@ namespace FlightSearchApp.Presentation
             return Json(CodeListService.ReadAllForEntityForCombo(CodesEnum.Values));
         }
 
-        public void FlightOfferSearch(string originLocationCode, string destinationLocationCode, DateTime departureDate, DateTime? returnDate, int adults, string? currencyCode)
+        public string FlightOfferSynchronize(string originLocationCode, string destinationLocationCode, string departureDate, string? returnDate, string adults, string? currencyCode)
         {
             var currencies = CodeListService.ReadAllForEntity(CodesEnum.Values);
-            var flightOffers = AmadeusDataService.FlightOfferSearch(originLocationCode, destinationLocationCode, departureDate, returnDate, adults, currencyCode, currencies);
-            FlightOfferService.CheckAndSaveData(flightOffers);
+            var flightOffers = AmadeusDataService.FlightOfferSynchronize(originLocationCode, destinationLocationCode, departureDate, returnDate, adults, currencyCode, currencies);
+            return flightOffers.Result == null ? "There are no flight offers for the entered values" : FlightOfferService.CheckAndSaveData(flightOffers);
+        }
+        public JsonResult FlightOfferSearch(string originLocationCode, string destinationLocationCode, string departureDate, string? returnDate, string adults, string? currencyCode)
+        {
+            return Json(new
+            {
+                aaData = FlightOfferService.ReadForDT(originLocationCode, destinationLocationCode, departureDate, returnDate, adults, currencyCode)
+            });
         }
     }
 }

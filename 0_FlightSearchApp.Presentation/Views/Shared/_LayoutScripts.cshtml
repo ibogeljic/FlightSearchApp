@@ -135,9 +135,8 @@
     }
 
     function showMessage(data) {
-        $("#txtPoruka").html(data);
-
-        $("#porukaModal").modal({ backdrop: "static" });
+        $("#txtMessage").html(data);
+        $("#messageModal").modal({ backdrop: "static" });
     }
 
     $(document).ready(function () {

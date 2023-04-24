@@ -19,7 +19,7 @@ namespace FlightSearchApp.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Entity = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,7 +39,7 @@ namespace FlightSearchApp.Infrastructure.Migrations
                     TransferNumbersDeparture = table.Column<int>(type: "int", nullable: false),
                     TransferNumbersReturn = table.Column<int>(type: "int", nullable: false),
                     PassengersNumber = table.Column<int>(type: "int", nullable: false),
-                    ValueID = table.Column<int>(type: "int", nullable: false),
+                    ValueID = table.Column<int>(type: "int", nullable: true),
                     TotalPrice = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>

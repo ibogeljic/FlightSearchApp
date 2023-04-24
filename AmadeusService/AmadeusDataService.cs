@@ -4,13 +4,15 @@ using FlightSearchApp.Application;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Globalization;
+using System.Net.Http.Headers;
+using System.ComponentModel.DataAnnotations;
 
 namespace AmadeusService
 {
     #region Interfaces
     public interface IAmadeusDataService
     {
-        Task<List<FlightOffer>> FlightOfferSearch(string originLocationCode, string destinationLocationCode, DateTime departureDate, DateTime? returnDate, int adults, 
+        Task<List<FlightOffer>> FlightOfferSynchronize(string originLocationCode, string destinationLocationCode, string departureDate, string? returnDate, string adults, 
             string? currencyCode, List<CodeList> values);
     }
     #endregion
@@ -19,24 +21,28 @@ namespace AmadeusService
     { 
         #region Services
 
-        public async Task<List<FlightOffer>> FlightOfferSearch(string originLocationCode, string destinationLocationCode, DateTime departureDate, DateTime? returnDate, int adults, 
+        public async Task<List<FlightOffer>> FlightOfferSynchronize(string originLocationCode, string destinationLocationCode, string departureDate, string? returnDate, string adults, 
             string? currencyCode, List<CodeList> values)
         {
+            string departureDateFormat = DateTime.ParseExact(departureDate, "dd.MM.yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+            string? returnDateFormat = string.IsNullOrEmpty(returnDate) ? null : DateTime.ParseExact(returnDate, "dd.MM.yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
             try
             {
                 var amadeus = new Amadeus(new Configuration(Globals.ApiKey, Globals.ApiSecret));
-                var requestParams = Params.with("originLocationCode", "ZAG")
-                        .and("destinationLocationCode", "BEG")
-                        .and("departureDate", "2023-04-25")
-                        .and("adults", "1");
+                var requestParams = Params.with("originLocationCode", originLocationCode)
+                        .and("destinationLocationCode", destinationLocationCode)
+                        .and("departureDate", departureDateFormat)
+                        .and("adults", adults);
                 if (returnDate != null)
-                    requestParams = requestParams.and("returnDate", "2023-04-26");
+                    requestParams = requestParams.and("returnDate", returnDateFormat);
                 if (currencyCode != null)
-                    requestParams = requestParams.and("currencyCode", "HRK");
+                    requestParams = requestParams.and("currencyCode", currencyCode);
 
                 var response = await Task.Run(() => amadeus.get("/v2/shopping/flight-offers", requestParams));
 
                 var flightOffers = new List<FlightOffer>();
+                var noValues = values == null || values.Count == 0;
                 foreach (JToken flightOfferToken in response.data)
                 {
                     JObject offer = (JObject)flightOfferToken;
@@ -52,9 +58,9 @@ namespace AmadeusService
                         ReturnDate = inbound == null ? null : DateTime.ParseExact((string)inbound["segments"][0]["departure"]["at"], "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture),
                         TransferNumbersDeparture = outbound["segments"].Count() - 1,
                         TransferNumbersReturn = inbound == null ? 0 : inbound["segments"].Count() - 1,
-                        PassengersNumber = adults,
-                        Value = values.Where(v => v.Code == (string)price["currency"]).First(),
-                        ValueID = values.Where(v => v.Code == (string)price["currency"]).First().ID,
+                        PassengersNumber = Convert.ToInt32(adults),
+                        Value = noValues ? null : values.First(v => v.Code == (string)price["currency"]),
+                        ValueID = noValues ? null : values.First(v => v.Code == (string)price["currency"]).ID,
                         TotalPrice = Convert.ToDouble(price["total"])
                     };
 
@@ -63,7 +69,10 @@ namespace AmadeusService
 
                 return flightOffers;
             }
-            catch (Exception e) { return null; }
+            catch (Exception e) 
+            { 
+                return null; 
+            }
         }
 
         #endregion

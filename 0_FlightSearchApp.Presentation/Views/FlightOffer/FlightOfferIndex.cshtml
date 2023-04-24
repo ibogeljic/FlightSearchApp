@@ -17,14 +17,14 @@
             <div class="col-sm-2">
                 <label class="control-label">Departure airport code</label>
                 <div class="input-group width-100">
-                    <input type="text" class="width-100 components" id="txtDepartureAirportCode" name="txtDepartureAirportCode" data-val="true" />
+                    <input type="text" class="width-100 components" id="txtDepartureAirportCode" name="txtDepartureAirportCode" maxlength="3" data-val="true" pattern="[A-Za-z]+" oninput="this.value = this.value.toUpperCase()" />
                     <span class="text-danger field-validation-valid" data-valmsg-for="txtDepartureAirportCode" data-valmsg-replace="true"></span>
                 </div>
             </div>
             <div class="col-sm-2">
                 <label class="control-label">Destination airport code</label>
                 <div class="input-group width-100" style="width:100%">
-                    <input type="text" class="width-100 components" id="txtDestinationAirportCode" name="txtDestinationAirportCode" data-val="true" />
+                    <input type="text" class="width-100 components" id="txtDestinationAirportCode" name="txtDestinationAirportCode" maxlength="3" data-val="true" pattern="[A-Za-z]+" oninput="this.value = this.value.toUpperCase()" />
                     <span class="text-danger field-validation-valid" data-valmsg-for="txtDestinationAirportCode" data-valmsg-replace="true"></span>
                 </div>
             </div>
@@ -101,11 +101,20 @@
 
 <script type="text/javascript">
 
-    function flightOfferSearch() {
+    function flightOfferSynchronize() {
+        //if (!$("#frmFlightOffer").valid()) {
+        //    return false;
+        //};
+        var valid = validate();
+        if (valid != ""){
+            showMessage(valid);
+            return false;
+        }
+
         OpenPleaseWait();
         $.ajax({
-            type: 'GET',
-            url: '@Globals.GetAjaxPath(AjaxPath.FlightOfferSearch)',
+            type: 'POST',
+            url: '@Globals.GetAjaxPath(AjaxPath.FlightOfferSynchronize)',
             data: {
                 originLocationCode: $("#txtDepartureAirportCode").val(),
                 destinationLocationCode: $("#txtDestinationAirportCode").val(),
@@ -114,17 +123,106 @@
                 adults: $("#txtPassengersNumber").val(),
                 currencyCode: $("#cboCurrency").select2('data')[0].text
             },
-            dataType: 'json',
+            dataType: 'text',
             cache: false,
             success: function (data) { 
                 ClosePleaseWait();
+                showMessage(data);
             },
             error: function (jqXHR, textStatus, exception) {
-                showMessage(exception);
-                //prikaziPoruku(formatAjaxErrorMessage(jqXHR, exception));
+                ClosePleaseWait();
+                showMessage(textStatus);
             }
         });
-        
+    }
+
+    function flightOfferSearch() {
+        //if (!$("#frmFlightOffer").valid()) {
+        //    return false;
+        //};
+
+        var valid = validate();
+        if (valid != "") {
+            showMessage(valid);
+            return false;
+        }
+
+        OpenPleaseWait();
+
+        //$.ajax({
+        //    type: 'GET',
+        //    url: '@Globals.GetAjaxPath(AjaxPath.FlightOfferSearch)',
+            //data: {
+            //    originLocationCode: $("#txtDepartureAirportCode").val(),
+            //    destinationLocationCode: $("#txtDestinationAirportCode").val(),
+            //    departureDate: $("#txtDepartureDate").val(),
+            //    returnDate: $("#txtReturnDate").val(),
+            //    adults: $("#txtPassengersNumber").val(),
+            //    currencyCode: $("#cboCurrency").select2('data')[0].text
+            //},
+        //    dataType: 'json',
+        //    cache: false,
+        //    success: function (data) {
+        //        ClosePleaseWait();
+        //        if (data.length == 0) {
+        //            showMessage("There is no flight offers for the entered values! Try fetching the data first with the Synchronize data button.");
+        //        }
+        //        else {
+        //            $('#dtFlightOffers').DataTable().clear().rows.add(data).draw();
+        //        }
+        //    },
+        //    error: function (jqXHR, textStatus, exception) {
+        //        showMessage(textStatus);
+        //    }
+        //});
+
+            $('#dtFlightOffers').DataTable({
+                columns: [
+                    { width: "30px" },
+                    { width: "30px" },
+                    { width: "40px" },
+                    { width: "40px" },
+                    { width: "30px" },
+                    { width: "30px" },
+                    { width: "30px" },
+                    { width: "20px" },
+                    { width: "30px" }
+                ],
+                ajax: {
+                    url: "@Globals.GetAjaxPath(AjaxPath.FlightOfferSearch)",
+                    type: "POST",
+                    data: {
+                        originLocationCode: $("#txtDepartureAirportCode").val(),
+                        destinationLocationCode: $("#txtDestinationAirportCode").val(),
+                        departureDate: $("#txtDepartureDate").val(),
+                        returnDate: $("#txtReturnDate").val(),
+                        adults: $("#txtPassengersNumber").val(),
+                        currencyCode: $("#cboCurrency").select2('data')[0].text
+                    },
+                    dataType: 'json',
+                    cache: false,
+                    success: function (data) {
+                        ClosePleaseWait();
+                    }
+            });
+    }
+
+    function validate()
+    {
+        if ($("#txtDepartureAirportCode").val() == "") {
+            return "Enter the code of departure airport!";
+        }
+        else if ($("#txtDestinationAirportCode").val() == "") {
+            return "Enter the code of destination airport!";
+        }
+        else if ($("#txtDepartureDate").val() == "") {
+            return "Enter the departure date value!";
+        }
+        else if ($("#txtPassengersNumber").val() == "") {
+            return "Enter the value of the number of passengers!";
+        }
+        else
+            return "";
     }
 
     $(document).ready(function ($) {
@@ -147,16 +245,16 @@
                 { width: "30px" }
             ],
             data: []
-    });
+        });
 
     }).on("click", "#btnClear", function (e) {
         clearFields();
 
     }).on("click", "#btnSearch", function (e) {
+        flightOfferSearch();
 
     }).on("click", "#btnSynchronizeData", function (e) {
-        //TODO DODATI VALIDACIJU FORME
-        flightOfferSearch();
+        flightOfferSynchronize();
 
     });
 </script>
