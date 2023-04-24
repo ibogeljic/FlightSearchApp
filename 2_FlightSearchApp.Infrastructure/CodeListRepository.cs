@@ -19,7 +19,7 @@ namespace FlightSearchApp.Infrastructure
                 .OrderBy(s => s.Entity)
                 .AsEnumerable();
         }
-        public IEnumerable<CodeList> ReadAllForEntity(CodesEnum entity)
+        public IEnumerable<CodeList> ReadAllForEntityForCombo(CodesEnum entity)
         {
             return QueryDbsetActive()
                 .Where(s => s.Entity == entity.ToString())

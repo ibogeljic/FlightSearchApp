@@ -21,5 +21,6 @@ namespace FlightSearchApp.Domain
         CodeListUpdate = 5,
         CodeListDelete = 6,
         FlightOfferGetCurrencyForCombo = 7,
+        FlightOfferSearch = 8
     }
 }

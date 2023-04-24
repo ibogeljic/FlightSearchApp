@@ -12,4 +12,9 @@
     <PackageReference Include="amadeus-dotnet" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\1_FlightSearchApp.Application\1_FlightSearchApp.Application.csproj" />
+    <ProjectReference Include="..\3_FlightSearchApp.Domain\3_FlightSearchApp.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

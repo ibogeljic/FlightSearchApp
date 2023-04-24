@@ -5182,3 +5182,11 @@ table.text-center th {
     padding: 5px 10px;
     border-radius: 5px;
 }
+
+.synchronize-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

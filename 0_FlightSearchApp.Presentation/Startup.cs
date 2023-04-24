@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using AmadeusService;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FlightSearchApp.Application;
 using FlightSearchApp.Domain;
@@ -26,6 +27,7 @@ namespace FlightSearchApp
             services.AddScoped<ICodeListRepository, CodeListRepository>();
             services.AddScoped<IFlightOfferService, FlightOfferService>();
             services.AddScoped<IFlightOfferRepository, FlightOfferRepisitory>();
+            services.AddScoped<IAmadeusDataService, AmadeusDataService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

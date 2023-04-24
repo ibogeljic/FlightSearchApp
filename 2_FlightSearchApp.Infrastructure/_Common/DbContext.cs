@@ -15,7 +15,7 @@ namespace FlightSearchApp.Infrastructure
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer("Server=localhost\\SQLEXPRESS;Database=dbFlightSearch;TrustServerCertificate=true;Trusted_Connection=True;");
+                .UseSqlServer(File.ReadAllLines(@"..\dbConnection.txt")[0]);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

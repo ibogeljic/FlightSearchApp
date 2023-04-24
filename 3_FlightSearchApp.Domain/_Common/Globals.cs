@@ -4,11 +4,9 @@ namespace FlightSearchApp.Domain
     public class Globals
     {
         //Želio bi napomenuti da u svakoj drugoj situaciji, ovi podaci ne bi bili vidljivi na ovaj način, nego kriptirani u bazi
-        private const string _ApiKey = "5geRD4x0etjNcGZQUiOR0laAiEzALhyl";  
-        private const string _ApiSecret = "9bIT6qmJtE4Pp1ug";
+        public const string ApiKey = "5geRD4x0etjNcGZQUiOR0laAiEzALhyl";
+        public const string ApiSecret = "9bIT6qmJtE4Pp1ug";
 
-        public string ApiKey => _ApiKey;
-        public string ApiSecret => _ApiSecret;
         public const char DefaultStringDelimiter = '|';
         public const string JquerySeparator = "\xA0\xA0\xA0\xA0";
 
@@ -35,6 +33,9 @@ namespace FlightSearchApp.Domain
                     break;
                 case AjaxPath.FlightOfferGetCurrencyForCombo:
                     pathString += "/FlightOffer/FlightOfferGetCurrencyForCombo";
+                    break;
+                case AjaxPath.FlightOfferSearch:
+                    pathString += "/FlightOffer/FlightOfferSearch";
                     break;
             }
             return pathString;

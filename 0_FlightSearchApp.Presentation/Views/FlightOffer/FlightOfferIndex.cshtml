@@ -50,7 +50,7 @@
             <div class="col-sm-2">
                 <label class="control-label">Number of passengers</label>
                 <div class="input-group width-100">
-                    <input type="text" class="width-100 components cijeli-broj-1-maska" id="txtPassengersNumber" name="txtPassengersNumber" data-val="true" />
+                    <input type="text" class="width-100 components whole-number-single-digit" id="txtPassengersNumber" name="txtPassengersNumber" data-val="true" />
                     <span class="text-danger field-validation-valid" data-valmsg-for="txtPassengersNumber" data-valmsg-replace="true"></span>
                 </div>
             </div>
@@ -65,8 +65,11 @@
     <div class="row empty-row"></div>
     <div class="row empty-row"></div>
     <div class="row">
-        <div class="col-sm-12 text-right">
-            <button class="btn reset-button" id="btnClear"><i class="fa fa-times"></i> Clear</button>
+        <div class="col-sm-6 text-left">
+            <button class="btn synchronize-button" id="btnSynchronizeData"><i class="fa fa-cloud-download"></i>Synchronize data</button>
+        </div>
+        <div class="col-sm-6 text-right">
+            <button class="btn reset-button" id="btnClear"><i class="fa fa-times"></i>Clear</button>
             <button class="btn search-button" id="btnSearch"><i class="fa fa-search"></i> Search</button>
         </div>
     </div>
@@ -98,14 +101,30 @@
 
 <script type="text/javascript">
 
-    function readDTFlightOffers() {
-        var table = $('#dtFlightOffers').DataTable();
-        table.clear();
-        table.ajax.url("@Globals.GetAjaxPath(AjaxPath.CodeListReadForDT)").load({
+    function flightOfferSearch() {
+        OpenPleaseWait();
+        $.ajax({
+            type: 'GET',
+            url: '@Globals.GetAjaxPath(AjaxPath.FlightOfferSearch)',
             data: {
-                entity: "dva" //NE ŠALJE VRIJEDNOST PARAMETRA U METODU NA CONTROLLER-u
+                originLocationCode: $("#txtDepartureAirportCode").val(),
+                destinationLocationCode: $("#txtDestinationAirportCode").val(),
+                departureDate: $("#txtDepartureDate").val(),
+                returnDate: $("#txtReturnDate").val(),
+                adults: $("#txtPassengersNumber").val(),
+                currencyCode: $("#cboCurrency").select2('data')[0].text
+            },
+            dataType: 'json',
+            cache: false,
+            success: function (data) { 
+                ClosePleaseWait();
+            },
+            error: function (jqXHR, textStatus, exception) {
+                showMessage(exception);
+                //prikaziPoruku(formatAjaxErrorMessage(jqXHR, exception));
             }
         });
+        
     }
 
     $(document).ready(function ($) {
@@ -134,7 +153,10 @@
         clearFields();
 
     }).on("click", "#btnSearch", function (e) {
-        readDTFlightOffers();
+
+    }).on("click", "#btnSynchronizeData", function (e) {
+        //TODO DODATI VALIDACIJU FORME
+        flightOfferSearch();
 
     });
 </script>

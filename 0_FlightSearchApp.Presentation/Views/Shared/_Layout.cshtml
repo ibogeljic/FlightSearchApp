@@ -113,6 +113,9 @@
             <strong>Copyright &copy; @DateTime.Now.Year Igor Bogeljić</strong>
         </footer>
     </div>
+    @{
+        await Html.RenderPartialAsync("_ModalMessage");
+    }
 
     <script type='text/javascript' src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script type='text/javascript' src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>

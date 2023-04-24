@@ -12,7 +12,18 @@
         });
     });
 
-    $(".cijeli-broj-1-maska").inputmask("[9]", { "repeat": 1, "placeholder": '' });
+    $(".whole-number-single-digit").inputmask({
+        mask: "9",
+        repeat: 1,
+        placeholder: '',
+        definitions: {
+            '9': {
+                validator: "[1-9]",
+                cardinality: 1
+            }
+        }
+    });
+
 
     function globalOnSuccess(closePleaseWait, modalForm) {
         if (closePleaseWait) {
@@ -114,11 +125,19 @@
                     break;
                 case 'select-one':
                     field.selectedIndex = 0;
+                    field.options[0].selected = true;
+                    field.dispatchEvent(new Event('change'));
                     break;
                 default:
                     break;
             }
         });
+    }
+
+    function showMessage(data) {
+        $("#txtPoruka").html(data);
+
+        $("#porukaModal").modal({ backdrop: "static" });
     }
 
     $(document).ready(function () {

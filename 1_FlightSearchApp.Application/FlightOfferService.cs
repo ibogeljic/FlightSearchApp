@@ -11,6 +11,7 @@ namespace FlightSearchApp.Application
     public interface IFlightOfferService : IGenericService<FlightOffer>
     {
         //List<string[]> ReadForDT(string entity);
+        void CheckAndSaveData(Task<List<FlightOffer>> flightOffers);
     }
     #endregion
 
@@ -21,6 +22,11 @@ namespace FlightSearchApp.Application
         public FlightOfferService(IFlightOfferRepository repository) : base(repository)
         {
             _Repository = repository;
+        }
+        public void CheckAndSaveData(Task<List<FlightOffer>> flightOffers)
+        {
+            foreach (var flightOffer in flightOffers.Result)
+                _Repository.CheckAndSaveNonDuplicate(flightOffer);
         }
     }
     #endregion

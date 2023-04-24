@@ -22,6 +22,7 @@
     <ProjectReference Include="..\1_FlightSearchApp.Application\1_FlightSearchApp.Application.csproj" />
     <ProjectReference Include="..\2_FlightSearchApp.Infrastructure\2_FlightSearchApp.Infrastructure.csproj" />
     <ProjectReference Include="..\3_FlightSearchApp.Domain\3_FlightSearchApp.Domain.csproj" />
+    <ProjectReference Include="..\AmadeusService\AmadeusService.csproj" />
   </ItemGroup>
 
 </Project>

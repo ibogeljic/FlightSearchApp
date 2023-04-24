@@ -20,5 +20,21 @@ namespace FlightSearchApp.Domain
         [ForeignKey("ValueID")]
         public CodeList Value { get; set; }
         public double TotalPrice { get; set; }
+
+        //public FlightOffer() { }
+        //public FlightOffer(string departureAirportCode, string destinationAirportCode, DateTime departureDate, DateTime? returnDate, int transferNumbersDeparture,
+        //    int transferNumbersReturn, int passengersNumber, int? valueID, CodeList value, double totalPrice)
+        //{
+        //    DepartureAirportCode = departureAirportCode;
+        //    DestinationAirportCode = destinationAirportCode;    
+        //    DepartureDate = departureDate;
+        //    ReturnDate = returnDate;
+        //    TransferNumbersDeparture = transferNumbersDeparture;
+        //    TransferNumbersReturn = transferNumbersReturn;
+        //    PassengersNumber = passengersNumber;
+        //    ValueID = valueID;
+        //    Value = value;
+        //    TotalPrice = totalPrice;
+        //}
     }
 }

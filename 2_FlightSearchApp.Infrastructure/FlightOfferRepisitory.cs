@@ -18,5 +18,12 @@ namespace FlightSearchApp.Infrastructure
         //        .OrderBy(s => s.Entity)
         //        .AsEnumerable();
         //}
+        public void CheckAndSaveNonDuplicate(FlightOffer flightOffer)
+        {
+            if (!QueryDbset().Where(f => f.DepartureAirportCode == flightOffer.DepartureAirportCode && f.DestinationAirportCode == flightOffer.DestinationAirportCode && 
+                f.DepartureDate == flightOffer.DepartureDate && f.ReturnDate == flightOffer.ReturnDate && f.PassengersNumber == flightOffer.PassengersNumber && 
+                f.ValueID == flightOffer.ValueID).Any())
+                CreateSave(flightOffer);
+        }
     }
 }

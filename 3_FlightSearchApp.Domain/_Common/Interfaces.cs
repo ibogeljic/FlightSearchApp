@@ -34,14 +34,14 @@ namespace FlightSearchApp.Domain
     public interface ICodeListRepository : IGenericSoftDeleteRepository<CodeList>
     {
         IEnumerable<CodeList> ReadAllActiveOrdered();
-        IEnumerable<CodeList> ReadAllForEntity(CodesEnum entity);
+        IEnumerable<CodeList> ReadAllForEntityForCombo(CodesEnum entity);
     }
     #endregion
 
     #region FlighOfferResporitory
     public interface IFlightOfferRepository : IGenericRepository<FlightOffer>
     {
-        
+        void CheckAndSaveNonDuplicate(FlightOffer flightOffer);
     }
     #endregion
 }
